@@ -1,2 +1,2 @@
-# ojs-components
-Module with input type components
+# ojs-core
+Core module of orangutan library
