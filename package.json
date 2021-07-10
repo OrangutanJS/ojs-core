@@ -1,5 +1,5 @@
 {
-  "name": "orangutan-core",
+  "name": "ojs-core",
   "version": "1.0.0",
   "description": "Open source JavaScript library for creating Object-oriented Web user interfaces.",
   "main": "o.js",
