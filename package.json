@@ -1,0 +1,25 @@
+{
+  "name": "orangutan-core",
+  "version": "1.0.0",
+  "description": "Open source JavaScript library for creating Object-oriented Web user interfaces.",
+  "main": "o.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OrangutanJS/ojs-core.git"
+  },
+  "keywords": [
+    "ojs",
+    "orangutan",
+    "orangutanjs",
+    "objectjs"
+  ],
+  "author": "Maciej Swiechowicz and Kacper Stodolak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OrangutanJS/ojs-core/issues"
+  },
+  "homepage": "https://github.com/OrangutanJS/ojs-core#readme"
+}
