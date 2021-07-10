@@ -1,2 +1,3 @@
 # ojs-core
-Core module of orangutan library
+Open source JavaScript library for creating Object-oriented Web user interfaces.
+Core module
