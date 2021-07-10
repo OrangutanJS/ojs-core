@@ -42,7 +42,11 @@ o.prototype.click = function(cb) {
 };
 
 
-//TODO: zmienić na formę dodawania : { attr_name: attr_value }
+o.prototype.setAttribute = function (name, val){
+    this.element.setAttribute(name, val);
+    return this;
+}
+
 o.prototype.attr = function(attrs) {
     if (Array.isArray(attrs)) {
         attrs.forEach(attr => this.element.setAttribute(attr.name, attr.val));
@@ -52,8 +56,6 @@ o.prototype.attr = function(attrs) {
     }
     return this;
 };
-
-
 
 o.prototype.class = function(classNames) {
     if (Array.isArray(classNames)) {
