@@ -1,4 +1,4 @@
-import LibrariesTranslator from '../methods/LibrariesTranslator';
+// import LibrariesTranslator from '../methods/LibrariesTranslator';
 
 function o(element) {
     if (!(this instanceof o)) {
@@ -207,4 +207,3 @@ export function oRef(){
     this.target = null;
     this.o = null;
 }
-
