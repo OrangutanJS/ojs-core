@@ -97,6 +97,13 @@ o.prototype.add = function(children) {
     return this;
 };
 
+o.prototype.for = function (id){
+    if (this.element.nodeName === 'label'){
+        this.element.setAttribute('for', id);
+    }
+    return this;
+};
+
 o.prototype.text = function(text) {
     if (typeof(text) != 'undefined' && text != 'undefined') {
         this.element.textContent = text;
