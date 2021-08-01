@@ -54,7 +54,7 @@ o.prototype.attr = function(attrs) {
     if (Array.isArray(attrs)) {
         attrs.forEach(attr => this.element.setAttribute(attr.name, attr.val));
     } else {
-        Object.entries(attrs).forEach(attr => this.element.setAttribute(attr[0], attr[1]));
+        Object.entries(attrs).forEach(([name,val]) => this.element.setAttribute(name, val));
     }
     return this;
 };
