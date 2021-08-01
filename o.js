@@ -15,7 +15,6 @@ function o(element) {
             console.log('form');
         });
     }
-    this.logger();
 }
 
 
@@ -47,12 +46,15 @@ o.prototype.setAttribute = function (name, val){
     return this;
 }
 
+o.prototype.setAttributes = function (attributes) {
+    return this.attr(attributes);
+}
+
 o.prototype.attr = function(attrs) {
     if (Array.isArray(attrs)) {
         attrs.forEach(attr => this.element.setAttribute(attr.name, attr.val));
     } else {
-        Object.entries(attrs).forEach(attr => this.element.setAttribute(attr[0], attr[1]));
-        // this.element.setAttribute(attrs.name, attrs.val);
+        Object.entries(attrs).forEach(([name,val]) => this.element.setAttribute(name, val));
     }
     return this;
 };
@@ -62,7 +64,6 @@ o.prototype.class = function(classNames) {
         classNames.forEach(className => this.element.classList.add(className));
     }else if (typeof classNames === 'string') {
         this.element.className = classNames;
-        // this.element.classList.add(classNames);
     }
     return this;
 };
@@ -73,7 +74,6 @@ o.prototype.classList = function(classList) {
 o.prototype.className = function(className) {
     return this.class(className)
 }
-
 
 o.prototype.id = function(idName) {
     this.element.setAttribute('id', idName);
@@ -100,14 +100,14 @@ o.prototype.add = function(children) {
 };
 
 o.prototype.for = function (id){
-    if (this.element.nodeName === 'label'){
+    if (this.element.nodeName === 'LABEL'){
         this.element.setAttribute('for', id);
     }
     return this;
 };
 
 o.prototype.text = function(text) {
-    if (typeof(text) != 'undefined' && text != 'undefined') {
+    if (!['undefined', 'object', 'function'].includes(typeof text)) {
         this.element.textContent = text;
     }
     return this;
@@ -168,18 +168,30 @@ o.prototype.ref = function (oRefInstance){
     return this;
 }
 
-o.prototype.push = function() {
-    return this.element;
-};
-
-o.prototype.logger = function() {
-    // console.log(this.element)
-};
-
 o.prototype.style = function(styles) {
     this.element.setAttribute('style', styles);
     return this;
 };
+
+// INPUT functions
+
+o.prototype.placeholder = function(placeholder) {
+    if(this.element.nodeName !== 'INPUT' || placeholder === undefined) {
+        console.warn('oJS: Cannot set placeholder. Element nodeName is not INPUT or argument given is undefined');
+        return this;
+    }
+    this.element.setAttribute('placeholder', placeholder);
+    return this;
+}
+
+o.prototype.value = function(value) {
+    if(this.element.nodeName !== 'INPUT' || value === undefined) {
+        console.warn('oJS: Cannot set value. Element nodeName is not INPUT or argument given is undefined');
+        return this;
+    }
+    this.element.value = value;
+    return this;
+}
 
 export default o;
 
