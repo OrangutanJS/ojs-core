@@ -107,7 +107,7 @@ o.prototype.for = function (id){
 };
 
 o.prototype.text = function(text) {
-    if (typeof(text) !== undefined && text !== '') {
+    if (!['undefined', 'object', 'function'].includes(typeof text)) {
         this.element.textContent = text;
     }
     return this;
