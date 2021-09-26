@@ -1,5 +1,3 @@
-// import LibrariesTranslator from '../methods/LibrariesTranslator';
-
 function o(element) {
     if (!(this instanceof o)) {
         return new o(element);
@@ -23,13 +21,11 @@ o.prototype.event = function(obj) {
         obj.forEach(event => this.element.addEventListener(
             event.name,
             event.fn,
-            // event.capture
         ));
     }else if (obj instanceof Object) {
         this.element.addEventListener(
             obj.name,
             obj.fn,
-            // event.capture
         );
     }
     return this;
@@ -160,7 +156,7 @@ o.prototype.translate = function(uri, method) {//If key is not in libraries then
 };
 o.prototype.ref = function (oRefInstance){
     if(!oRefInstance || !(oRefInstance instanceof oRef)){
-        console.error('oJS: Cannot set ref (reference) to instance. Wrong oRef instance given.');
+        // console.error('oJS: Cannot set ref (reference) to instance. Wrong oRef instance given.');
         return this;
     }
     oRefInstance.target = this.element;
@@ -175,23 +171,14 @@ o.prototype.style = function(styles) {
 
 // INPUT functions
 
-o.prototype.placeholder = function(placeholder) {
-    if(this.element.nodeName !== 'INPUT' || placeholder === undefined) {
-        console.warn('oJS: Cannot set placeholder. Element nodeName is not INPUT or argument given is undefined');
-        return this;
-    }
-    this.element.setAttribute('placeholder', placeholder);
-    return this;
-}
-
-o.prototype.value = function(value) {
-    if(this.element.nodeName !== 'INPUT' || value === undefined) {
-        console.warn('oJS: Cannot set value. Element nodeName is not INPUT or argument given is undefined');
-        return this;
-    }
-    this.element.value = value;
-    return this;
-}
+o.prototype.placeholder = function(placeholder) { return inputFunction(this, 'placeholder', placeholder) }
+o.prototype.value = function(value) { return inputFunction(this, 'value', value) }
+o.prototype.type = function(type) { return inputFunction(this, 'type', type) }
+o.prototype.name = function(name) { return inputFunction(this, 'name', name) }
+o.prototype.min = function(min) { return inputFunction(this, 'min', min) }
+o.prototype.max = function(max) { return inputFunction(this, 'max', max) }
+o.prototype.disabled = function(disabled) { return inputFunction(this, 'disabled', disabled) }
+o.prototype.required = function(required) { return inputFunction(this, 'required', required) }
 
 export default o;
 
