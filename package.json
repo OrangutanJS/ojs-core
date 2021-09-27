@@ -1,8 +1,8 @@
 {
   "name": "ojs-core",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Open source JavaScript library for creating Object-oriented Web user interfaces.",
-  "main": "o.js",
+  "main": "dist/o.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,6 +18,9 @@
   ],
   "author": "Maciej Swiechowicz and Kacper Stodolak",
   "license": "MIT",
+  "files": [
+    "dist/o.js"
+  ],
   "bugs": {
     "url": "https://github.com/OrangutanJS/ojs-core/issues"
   },
