@@ -82,13 +82,15 @@ o.prototype.add = function(children) {
     }else {
         children.forEach(child => {
             try {
+                if(typeof child === 'boolean')
+                    return;
                 if (Array.isArray(child)){
                     child.forEach(childEl => this.element.appendChild(childEl));
                 }else {
                     this.element.appendChild(child);
                 }
             }catch (err) {
-                //console.warn(err);
+                console.warn(err);
             }
         });
     }
