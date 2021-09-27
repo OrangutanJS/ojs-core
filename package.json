@@ -1,6 +1,6 @@
 {
   "name": "ojs-core",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Open source JavaScript library for creating Object-oriented Web user interfaces.",
   "main": "dist/o.js",
   "scripts": {
