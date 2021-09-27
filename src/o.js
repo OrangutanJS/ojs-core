@@ -71,8 +71,8 @@ o.prototype.className = function(className) {
     return this.class(className)
 }
 
-o.prototype.id = function(idName) {
-    this.element.setAttribute('id', idName);
+o.prototype.id = function(id) {
+    this.element.setAttribute('id', id);
     return this;
 };
 

@@ -9,5 +9,5 @@ and in console
 
 ```
 cd src
-terser o.js -c -m toplevel,reserved=["o"] -o "../dist/o.js"
+terser o.js -c -m toplevel,reserved=["o","element","obj","name","val","attributes", "attrs", "classNames", "classList", "className", "id", "children", "text", "html", "oRefInstance"] -o "../dist/o.js"
 ```
