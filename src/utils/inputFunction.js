@@ -5,3 +5,4 @@ function inputFunction(instance, name,  value) {
     instance.element[name] = value;
     return instance;
 }
+export default inputFunction;

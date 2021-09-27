@@ -1,3 +1,5 @@
+import inputFunction from "./utils/inputFunction";
+
 function o(element) {
     if (!(this instanceof o)) {
         return new o(element);
