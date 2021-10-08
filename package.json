@@ -4,7 +4,8 @@
   "description": "Open source JavaScript library for creating Object-oriented Web user interfaces.",
   "main": "dist/o.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --config ./config/webpack.config.js",
+    "dev": "webpack serve --config ./config/webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -16,7 +17,7 @@
     "orangutanjs",
     "objectjs"
   ],
-  "author": "Maciej Swiechowicz and Kacper Stodolak",
+  "author": "Maciej Swiechowicz (mswiechowicz) and Kacper Stodolak (kstodolak)",
   "license": "MIT",
   "files": [
     "dist/o.js",
@@ -25,5 +26,17 @@
   "bugs": {
     "url": "https://github.com/OrangutanJS/ojs-core/issues"
   },
-  "homepage": "https://github.com/OrangutanJS/ojs-core#readme"
+  "homepage": "https://github.com/OrangutanJS/ojs-core#readme",
+  "devDependencies": {
+    "@babel/preset-env": "^7.15.6",
+    "babel-loader": "^8.2.2",
+    "babel-polyfill": "^6.26.0",
+    "css-loader": "^6.3.0",
+    "html-webpack-plugin": "^5.3.2",
+    "mini-css-extract-plugin": "^2.3.0",
+    "ojs-inline-components": "^1.6.2",
+    "webpack": "^5.56.0",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.3.0"
+  }
 }
