@@ -9,9 +9,9 @@ and in console
 
 ```
 cd src
-terser o.js -c -m toplevel,reserved=["o","element","obj","name","val","attributes", "attrs", "classNames", "classList", "className", "id", "children", "text", "html", "oRefInstance"] -o "../dist/o.js"
+terser ./src/o.js -c -m toplevel,reserved=["o","element","obj","name","val","attributes", "attrs", "classNames", "classList", "className", "id", "children", "text", "html", "oRefInstance"] -o "./npm/o.js"
 ```
 and minify utils
 ```
-terser "./utils/inputFunction.js" -c -m toplevel,reserved=["inputFunction"] -o "../dist/utils/inputFunction.js"
+terser "./src/utils/inputFunction.js" -c -m toplevel,reserved=["inputFunction"] -o "./npm/utils/inputFunction.js"
 ```
