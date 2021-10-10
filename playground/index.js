@@ -1,8 +1,7 @@
 import o, { oFragment } from '../src/o';
 
 
-
-const html = o('div').add([
+const html = o('div').add(
     o('p').text('p - init').init(),
     o('p').text('p - withot init'),
     oFragment(
@@ -14,7 +13,7 @@ const html = o('div').add([
     oFragment([
         o('p').text('oFragment with init')
     ]).init()
-]).init();
+).init();
 
 document.body.appendChild(
     html
