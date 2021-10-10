@@ -1,3 +1,4 @@
+import addMethodService from "./utils/addMethodService";
 import inputFunction from "./utils/inputFunction";
 
 function o(element) {
@@ -78,37 +79,10 @@ o.prototype.id = function (id) {
     return this;
 };
 
-o.prototype.add = function (children) {
-    if (
-        typeof children === 'boolean' ||
-        children === null ||
-        typeof children === 'undefined'
-    ) return this;
-
-    if (Array.isArray(children)) {
-        children.forEach(child => this.add(child));
-        return this;
-    }
-
-    if (children instanceof oFragment) {
-        children.children.forEach(child => this.add(child));
-        return this;
-    }
-
-    if (children instanceof HTMLElement) {
-        this.element.appendChild(children);
-        return this;
-    }
-
-    if (children instanceof o || children.__proto__.init) {
-        const oInstanceHTML = children.init();
-        if (oInstanceHTML instanceof HTMLElement) {
-            this.element.appendChild(oInstanceHTML);
-        }
-    }
-
+o.prototype.add = function (...children) {
+    children.forEach(child => addMethodService.call(this, child));
     return this;
-};
+}
 
 o.prototype.for = function (id) {
     if (this.element.nodeName === 'LABEL') {
