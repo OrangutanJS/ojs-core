@@ -14,4 +14,5 @@ terser ./src/o.js -c -m toplevel,reserved=["o","element","obj","name","val","att
 and minify utils
 ```
 terser "./src/utils/inputFunction.js" -c -m toplevel,reserved=["inputFunction"] -o "./npm/utils/inputFunction.js"
+terser "./src/utils/addMethodService.js" -c -m toplevel,reserved=["addMethodService"] -o "./npm/utils/addMethodService.js"
 ```
