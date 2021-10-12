@@ -1,6 +1,6 @@
 {
   "name": "ojs-core",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Open source JavaScript library for creating Object-oriented Web user interfaces.",
   "main": "npm/o.js",
   "scripts": {
@@ -21,7 +21,8 @@
   "license": "MIT",
   "files": [
     "npm/o.js",
-    "npm/utils/inputFunction.js"
+    "npm/utils/inputFunction.js",
+    "npm/utils/addMethodService.js"
   ],
   "bugs": {
     "url": "https://github.com/OrangutanJS/ojs-core/issues"

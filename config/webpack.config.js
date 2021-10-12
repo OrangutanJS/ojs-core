@@ -41,7 +41,7 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin({ filename: 'css/[name].css' }),
     new HtmlWebpackPlugin({
-      title: 'oRouter',
+      title: 'oJS - core',
       base: 'http://localhost:9000/',
       hash: true,
       filename: './index.html',
