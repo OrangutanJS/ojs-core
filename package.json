@@ -21,7 +21,8 @@
   "license": "MIT",
   "files": [
     "npm/o.js",
-    "npm/utils/inputFunction.js"
+    "npm/utils/inputFunction.js",
+    "npm/utils/addMethodService.js"
   ],
   "bugs": {
     "url": "https://github.com/OrangutanJS/ojs-core/issues"
