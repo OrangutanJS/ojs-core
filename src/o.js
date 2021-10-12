@@ -204,3 +204,34 @@ export function oRef() {
     this.target = null;
     this.o = null;
 }
+
+
+export function oRender(parentNode, childNode) {
+    if (Array.isArray(childNode)) {
+        childNode.forEach(child => oRender(parentNode, child));
+        return;
+    }
+
+    const isParentNodeValid = (parentNode instanceof HTMLElement) || (parentNode instanceof o);
+    const isChildNodeValid = (childNode instanceof HTMLElement) || !!childNode.__proto__.init;
+    if (!isParentNodeValid || !isChildNodeValid)
+        return;
+
+    let parentNodeHTML = (parentNode instanceof HTMLElement) ? parentNode : parentNode.element;
+    const renderNode = childNode => {
+        if (childNode instanceof HTMLElement) {
+            parentNodeHTML.appendChild(childNode);
+            return;
+        }
+        if (childNode.__proto__.init) {
+            parentNodeHTML.appendChild(childNode.init());
+        } 
+    }
+
+    if (childNode instanceof oFragment) {
+        childNode.init().forEach(child => renderNode(child));
+        return;
+    }
+    
+    renderNode(childNode);
+}
