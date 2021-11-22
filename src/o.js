@@ -111,41 +111,13 @@ o.prototype.html = function (html) {
 
     return this;
 };
-o.prototype.translatedText = function (text, translatedFromKey) { //NOTE: IMPORTANT! works only with LibrariesTranslator class
-    if (translatedFromKey === 'boolean') {
-        const value = text == 0 ? 'NIE' : 'TAK';
-        return this.text(value);
-    }
-    if (!translatedFromKey || typeof translatedFromKey !== 'string') {
-        return this.text('Brak danych');
-    }
-
-    this.element.setAttribute('toTranslate', translatedFromKey);
-    this.element.setAttribute('toTranslate-value', text);
-
-    return this.class('dot-flashing');
-};
 
 o.prototype.init = function () {
     return (this.element instanceof oFragment) ? this.element.init() : this.element;
 };
 
-o.prototype.translate = function (uri, method) {//If key is not in libraries then use just ".translate()" - without parameters
-    if (!method) {
-        method = 'GET';
-    }
-    try {
-        LibrariesTranslator.init2(this.element, uri, method);
-    } catch (e) {
-        console.warn(e);
-        return this;
-    }
-
-    return this;
-};
 o.prototype.ref = function (oRefInstance) {
     if (!oRefInstance || !(oRefInstance instanceof oRef)) {
-        // console.error('oJS: Cannot set ref (reference) to instance. Wrong oRef instance given.');
         return this;
     }
     oRefInstance.target = this.element;
