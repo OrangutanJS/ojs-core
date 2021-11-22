@@ -96,5 +96,18 @@ fragment.add(
 )
 ```
 
-### oFragmentInstance.init()
+### oFragment - .init()
 Init method returns Array of all children from instance;
+#### Example:
+```js
+const fragment = oFragment(
+    o('p').text('p1').init(),
+    o('p').text('p2').init()
+);
+
+fragment.init();
+// [
+//  <p>p1</p>,
+//  <p>p2</p>
+// ]
+```
