@@ -171,25 +171,25 @@ o.prototype.required = function (required) { return inputFunction(this, 'require
 
 export default o;
 
-export function oFragment(children = null) {
+export function oFragment(...children) {
     if (!(this instanceof oFragment)) {
-        return new oFragment(children);
+        return new oFragment(...children);
     }
-    if (children === null) {
-        this.children = [];
-    } else {
-        this.children = Array.isArray(children)
-            ? [...children]
-            : [children];
-    }
+
+    this.children = children.length === 1 && Array.isArray(children[0])
+        ? children[0]
+        : children;
 }
 
-oFragment.prototype.add = function (children) {
-    if (Array.isArray(children)) {
-        this.children = this.children.concat([...children]);
-    } else {
-        this.children.push(children);
-    }
+oFragment.prototype.add = function (...children) {
+    if(!children.length)
+        return this;
+    const childrenArray = children.length === 1 && Array.isArray(children[0])
+        ? children[0]
+        : children;
+
+    this.children = this.children.concat(childrenArray);
+
     return this;
 };
 
