@@ -104,7 +104,7 @@ o.prototype.getId = function() {
 }
 
 o.prototype.parent = function() {
-    const parentNode = this.element.parentNode;
+    const { parentNode }  = this.element;
     return parentNode
         ? o(parentNode)
         : undefined;
