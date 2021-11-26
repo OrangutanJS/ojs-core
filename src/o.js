@@ -7,15 +7,15 @@ function o(element) {
     }
     if (element === 'fragment') {
         this.element = oFragment();
-    } else {
-        this.element = document.createElement(element);
+        return;
     }
-    if (element === 'form') {
-        this.element.addEventListener('submit', e => {
-            e.preventDefault();
-            console.log('form');
-        });
+
+    if(element instanceof HTMLElement) {
+        this.element = element;
+        return;
     }
+
+    this.element = document.createElement(element);
 }
 
 
@@ -90,6 +90,25 @@ o.prototype.for = function (id) {
     }
     return this;
 };
+
+o.prototype.get = function (attribute) {
+    return this.element[attribute] || undefined;
+}
+
+o.prototype.getText = function () {
+    return this.element.innerText;
+}
+
+o.prototype.getId = function() {
+    return this.element.id || undefined;
+}
+
+o.prototype.parent = function() {
+    const parentNode = this.element.parentNode || null;
+    return parentNode
+        ? o(parentNode)
+        : undefined;
+}
 
 o.prototype.text = function (text) {
     if (!['undefined', 'object', 'function'].includes(typeof text)) {
@@ -208,4 +227,10 @@ export function oRender(parentNode, childNode, cleanParentContent = false) {
     }
 
     renderNode(childNode);
+}
+
+export function oDom(selector, parentNode = document) {
+    const element = parentNode.querySelector(selector);
+
+    return element ? o(element) : null;
 }
