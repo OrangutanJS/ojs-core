@@ -230,7 +230,17 @@ export function oRender(parentNode, childNode, cleanParentContent = false) {
 }
 
 export function oDom(selector, parentNode = document) {
-    const element = parentNode.querySelector(selector);
+    if(typeof selector !== 'string') return null;
+    
+    const parentNodeElement = (parentNode instanceof o)
+        ? parentNode.element
+        : parentNode;
 
-    return element ? o(element) : null;
+    try{
+        const element = parentNodeElement.querySelector(selector);
+
+        return element ? o(element) : null;
+    }catch(err) {
+        return null;
+    }
 }

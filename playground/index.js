@@ -1,7 +1,8 @@
 import o, { oFragment, oRender, oDom } from '../src/o';
 import './main.css';
 
-const html = o('div').add(
+const div = o('div');
+const html = div.add(
     o('p').text('p - init').init(),
     o('p').id('pElement').text('p - without init'),
     oFragment(
@@ -17,6 +18,7 @@ oRender(
     html.init()
 );
 
+// const pElement = oDom('#pElement', div);
 const pElement = oDom('#pElement');
 pElement.text('p - without init but bolded').classList('bold');
 console.log(pElement.get('className'));
