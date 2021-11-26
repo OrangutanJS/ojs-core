@@ -26,7 +26,6 @@ console.log(pElement.get('id'));
 console.log(pElement.getText());
 console.log(pElement.parent());
 
-
 // oRender - Scenario #2
 // oRender(
 //     document.body,

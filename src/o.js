@@ -104,7 +104,7 @@ o.prototype.getId = function() {
 }
 
 o.prototype.parent = function() {
-    const parentNode = this.element.parentNode || null;
+    const parentNode = this.element.parentNode;
     return parentNode
         ? o(parentNode)
         : undefined;
@@ -231,7 +231,7 @@ export function oRender(parentNode, childNode, cleanParentContent = false) {
 
 export function oDom(selector, parentNode = document) {
     if(typeof selector !== 'string') return null;
-    
+
     const parentNodeElement = (parentNode instanceof o)
         ? parentNode.element
         : parentNode;
