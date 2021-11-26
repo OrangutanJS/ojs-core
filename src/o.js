@@ -111,41 +111,13 @@ o.prototype.html = function (html) {
 
     return this;
 };
-o.prototype.translatedText = function (text, translatedFromKey) { //NOTE: IMPORTANT! works only with LibrariesTranslator class
-    if (translatedFromKey === 'boolean') {
-        const value = text == 0 ? 'NIE' : 'TAK';
-        return this.text(value);
-    }
-    if (!translatedFromKey || typeof translatedFromKey !== 'string') {
-        return this.text('Brak danych');
-    }
-
-    this.element.setAttribute('toTranslate', translatedFromKey);
-    this.element.setAttribute('toTranslate-value', text);
-
-    return this.class('dot-flashing');
-};
 
 o.prototype.init = function () {
     return (this.element instanceof oFragment) ? this.element.init() : this.element;
 };
 
-o.prototype.translate = function (uri, method) {//If key is not in libraries then use just ".translate()" - without parameters
-    if (!method) {
-        method = 'GET';
-    }
-    try {
-        LibrariesTranslator.init2(this.element, uri, method);
-    } catch (e) {
-        console.warn(e);
-        return this;
-    }
-
-    return this;
-};
 o.prototype.ref = function (oRefInstance) {
     if (!oRefInstance || !(oRefInstance instanceof oRef)) {
-        // console.error('oJS: Cannot set ref (reference) to instance. Wrong oRef instance given.');
         return this;
     }
     oRefInstance.target = this.element;
@@ -171,25 +143,25 @@ o.prototype.required = function (required) { return inputFunction(this, 'require
 
 export default o;
 
-export function oFragment(children = null) {
+export function oFragment(...children) {
     if (!(this instanceof oFragment)) {
-        return new oFragment(children);
+        return new oFragment(...children);
     }
-    if (children === null) {
-        this.children = [];
-    } else {
-        this.children = Array.isArray(children)
-            ? [...children]
-            : [children];
-    }
+
+    this.children = children.length === 1 && Array.isArray(children[0])
+        ? children[0]
+        : children;
 }
 
-oFragment.prototype.add = function (children) {
-    if (Array.isArray(children)) {
-        this.children = this.children.concat([...children]);
-    } else {
-        this.children.push(children);
-    }
+oFragment.prototype.add = function (...children) {
+    if(!children.length)
+        return this;
+    const childrenArray = children.length === 1 && Array.isArray(children[0])
+        ? children[0]
+        : children;
+
+    this.children = this.children.concat(childrenArray);
+
     return this;
 };
 
@@ -206,7 +178,7 @@ export function oRef() {
 }
 
 
-export function oRender(parentNode, childNode) {
+export function oRender(parentNode, childNode, cleanParentContent = false) {
     if (Array.isArray(childNode)) {
         childNode.forEach(child => oRender(parentNode, child));
         return;
@@ -220,18 +192,20 @@ export function oRender(parentNode, childNode) {
     let parentNodeHTML = (parentNode instanceof HTMLElement) ? parentNode : parentNode.element;
     const renderNode = childNode => {
         if (childNode instanceof HTMLElement) {
+            if(cleanParentContent) parentNodeHTML.innerHTML = '';
             parentNodeHTML.appendChild(childNode);
             return;
         }
         if (childNode.__proto__.init) {
+            if(cleanParentContent) parentNodeHTML.innerHTML = '';
             parentNodeHTML.appendChild(childNode.init());
-        } 
+        }
     }
 
     if (childNode instanceof oFragment) {
         childNode.init().forEach(child => renderNode(child));
         return;
     }
-    
+
     renderNode(childNode);
 }

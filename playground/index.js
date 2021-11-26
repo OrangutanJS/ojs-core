@@ -5,14 +5,10 @@ const html = o('div').add(
     o('p').text('p - init').init(),
     o('p').text('p - without init'),
     oFragment(
-        o('p').text('p - inside oFragment with init').init()
-    ),
-    oFragment([
-        o('p').text('p - inside oFragment without init')
-    ]),
-    oFragment([
+        o('p').text('p - inside oFragment with init').init(),
+        o('p').text('p - inside oFragment without init'),
         o('p').text('oFragment with init')
-    ]).init()
+    ),
 );
 
 // oRender - Scenario #1
