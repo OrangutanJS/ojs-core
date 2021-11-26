@@ -107,7 +107,7 @@ o.prototype.parent = function() {
     const { parentNode }  = this.element;
     return parentNode
         ? o(parentNode)
-        : undefined;
+        : null;
 }
 
 o.prototype.text = function (text) {
