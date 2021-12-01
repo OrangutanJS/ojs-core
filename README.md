@@ -111,3 +111,22 @@ fragment.init();
 //  <p>p2</p>
 // ]
 ```
+
+## oDom
+oDom allows to get element from DOM using query selector (css selectors). Returns ojs object.
+Returns null in all other cases (element not found or wrong arguments);
+```ts
+oDom(selector: String, parentNode: DOMElement|ojsInstance = document)
+```
+ - selector - query selector (css selector)
+ - parentNode - element in the node of which we are looking for wanted element. Default parentNode is *document*.
+
+ #### Important - oDom returns always only one element!
+#### Example:
+```js
+import o,{ oDom } from 'ojs-core';
+
+const pElement = oDom('#someParagraph');
+
+pElement.text('new paragraph text set using ojs API');
+```
