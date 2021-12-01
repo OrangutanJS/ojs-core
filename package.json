@@ -1,12 +1,18 @@
 {
   "name": "ojs-core",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "Open source JavaScript library for creating Object-oriented Web user interfaces.",
-  "main": "npm/o.js",
+  "main": "npm/index.js",
   "source": "src/o.js",
-  "type": "module",
+  "files": [
+    "npm/index.js",
+    "npm/o.development.js",
+    "npm/o.production.min.js"
+  ],
   "scripts": {
-    "build": "parcel build",
+    "build": "npm run rollup && npm run build:prod",
+    "build:prod": "terser ./npm/o.development.js -c -m -o ./npm/o.production.min.js",
+    "rollup": "rollup --config rollup.config.js",
     "dev": "webpack serve --config ./config/webpack.config.js"
   },
   "repository": {
@@ -21,9 +27,6 @@
   ],
   "author": "Maciej Swiechowicz (mswiechowicz) and Kacper Stodolak (kstodolak)",
   "license": "MIT",
-  "files": [
-    "npm/o.js"
-  ],
   "bugs": {
     "url": "https://github.com/OrangutanJS/ojs-core/issues"
   },
@@ -36,7 +39,8 @@
     "html-webpack-plugin": "^5.3.2",
     "mini-css-extract-plugin": "^2.3.0",
     "ojs-inline-components": "^1.6.2",
-    "parcel": "^2.0.1",
+    "rollup": "^2.60.2",
+    "terser": "^5.10.0",
     "webpack": "^5.56.0",
     "webpack-cli": "^4.8.0",
     "webpack-dev-server": "^4.3.0"
