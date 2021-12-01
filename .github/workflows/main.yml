@@ -17,6 +17,7 @@ jobs:
           path: ${{ github.ref }}
           clean: true
           lfs: true
+      - uses: ./
       # Runs a single command using the runners shell
       - name: Install dependencies
         run: npm ci
