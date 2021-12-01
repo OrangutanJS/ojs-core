@@ -1,4 +1,5 @@
-import o, { oFragment, oRender } from '../src/o';
+// import o, { oFragment, oRender } from '../src/o';
+import o, {oFragment, oRender} from '../npm/o';
 
 
 const html = o('div').add(

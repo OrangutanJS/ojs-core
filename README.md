@@ -1,6 +1,16 @@
 # ojs-core
 Open source JavaScript library for creating Object-oriented Web user interfaces.
 Core OrangutanJS module.
+
+### Dev notes:
+#### To run playground:
+remove
+```"type": "module"```
+from ```package.json```  and 
+```js
+npm run dev
+```
+
 ## Install using npm:
 ```bash
 npm i -D ojs-core

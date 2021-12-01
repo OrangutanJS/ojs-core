@@ -1,1 +1,0 @@
-function inputFunction(e,n,t){return"INPUT"!==e.element.nodeName||void 0===t||(e.element[n]=t),e}export default inputFunction;
