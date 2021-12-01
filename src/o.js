@@ -105,9 +105,8 @@ o.prototype.getId = function() {
 
 o.prototype.parent = function() {
     const { parentNode }  = this.element;
-    return parentNode
-        ? o(parentNode)
-        : null;
+
+    return parentNode ? o(parentNode) : null;
 }
 
 o.prototype.text = function (text) {
