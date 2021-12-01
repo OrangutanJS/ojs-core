@@ -1,10 +1,12 @@
 {
   "name": "ojs-core",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "Open source JavaScript library for creating Object-oriented Web user interfaces.",
   "main": "npm/o.js",
+  "source": "src/o.js",
+  "type": "module",
   "scripts": {
-    "build": "webpack --config ./config/webpack.config.js",
+    "build": "parcel build",
     "dev": "webpack serve --config ./config/webpack.config.js"
   },
   "repository": {
@@ -20,9 +22,7 @@
   "author": "Maciej Swiechowicz (mswiechowicz) and Kacper Stodolak (kstodolak)",
   "license": "MIT",
   "files": [
-    "npm/o.js",
-    "npm/utils/inputFunction.js",
-    "npm/utils/addMethodService.js"
+    "npm/o.js"
   ],
   "bugs": {
     "url": "https://github.com/OrangutanJS/ojs-core/issues"
@@ -36,6 +36,7 @@
     "html-webpack-plugin": "^5.3.2",
     "mini-css-extract-plugin": "^2.3.0",
     "ojs-inline-components": "^1.6.2",
+    "parcel": "^2.0.1",
     "webpack": "^5.56.0",
     "webpack-cli": "^4.8.0",
     "webpack-dev-server": "^4.3.0"
