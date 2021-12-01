@@ -1,10 +1,10 @@
-// import o, { oFragment, oRender } from '../src/o';
-import o, {oFragment, oRender} from '../npm/o';
+import o, { oFragment, oRender, oDom } from '../src/o';
+import './main.css';
 
-
-const html = o('div').add(
+const div = o('div');
+const html = div.add(
     o('p').text('p - init').init(),
-    o('p').text('p - without init'),
+    o('p').id('pElement').text('p - without init'),
     oFragment(
         o('p').text('p - inside oFragment with init').init(),
         o('p').text('p - inside oFragment without init'),
@@ -17,6 +17,14 @@ oRender(
     document.body,
     html.init()
 );
+
+// const pElement = oDom('#pElement', div);
+const pElement = oDom('#pElement');
+pElement.text('p - without init but bolded').classList('bold');
+console.log(pElement.get('className'));
+console.log(pElement.get('id'));
+console.log(pElement.getText());
+console.log(pElement.parent());
 
 // oRender - Scenario #2
 // oRender(
