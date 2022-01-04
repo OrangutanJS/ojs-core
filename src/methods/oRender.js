@@ -1,4 +1,5 @@
 import { oFragment } from "./oFragment";
+import { o } from "./o";
 
 export function oRender(parentNode, childNode, cleanParentContent = false) {
     if (Array.isArray(childNode)) {

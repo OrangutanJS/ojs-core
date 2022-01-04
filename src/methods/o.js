@@ -20,7 +20,6 @@ export function o(element) {
     this.element = document.createElement(element);
 }
 
-
 o.prototype.event = function (obj) {
     if (obj instanceof Array) {
         obj.forEach(event => this.element.addEventListener(

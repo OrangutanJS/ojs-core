@@ -1,7 +1,3 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
 function oFragment(...children) {
     if (!(this instanceof oFragment)) {
         return new oFragment(...children);
@@ -285,8 +281,4 @@ function oRender(parentNode, childNode, cleanParentContent = false) {
     renderNode(childNode);
 }
 
-exports["default"] = o;
-exports.oDom = oDom;
-exports.oFragment = oFragment;
-exports.oRef = oRef;
-exports.oRender = oRender;
+export { o as default, oDom, oFragment, oRef, oRender };
