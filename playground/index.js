@@ -2,9 +2,6 @@ import o, { oFragment, oDom } from '../src/o';
 import { oRender } from '../src/oRender';
 import './main.css';
 
-const xd = o('div').id('xd').init();
-
-
 const div = o('div');
 const html = div.add(
     o('p').text('p - init').init(),
