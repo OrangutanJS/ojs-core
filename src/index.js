@@ -1,7 +1,7 @@
-import { o } from './o';
+import { o } from './methods/o';
 
-export { oDom } from './o';
-export { oFragment } from './o';
-export { oRef } from './oRef';
-export { oRender } from './oRender';
+export { oDom } from './methods/oDom';
+export { oFragment } from './methods/oFragment';
+export { oRef } from './methods/oRef';
+export { oRender } from './methods/oRender';
 export default o;

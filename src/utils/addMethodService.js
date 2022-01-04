@@ -1,6 +1,7 @@
-import o, { oFragment } from "../o";
+import { o } from "../methods/o";
+import { oFragment } from "../methods/oFragment";
 
-export default function addMethodService(children) {
+export function addMethodService(children) {
     if (!(this instanceof o)) {
         console.error('Wrong usage of addService function');
         return;

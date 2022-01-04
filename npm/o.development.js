@@ -2,8 +2,41 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+function oFragment(...children) {
+    if (!(this instanceof oFragment)) {
+        return new oFragment(...children);
+    }
+
+    this.children = children.length === 1 && Array.isArray(children[0])
+        ? children[0]
+        : children;
+}
+
+oFragment.prototype.add = function (...children) {
+    if (!children.length)
+        return this;
+    const childrenArray = children.length === 1 && Array.isArray(children[0])
+        ? children[0]
+        : children;
+
+    this.children = this.children.concat(childrenArray);
+
+    return this;
+};
+
+oFragment.prototype.init = function () {
+    return this.children;
+};
+
+function oRef() {
+    if (!(this instanceof oRef))
+        return new oRef();
+    this.target = null;
+    this.o = null;
+}
+
 function addMethodService(children) {
-    if (!(this instanceof o)) {
+    if (!(this instanceof o$1)) {
         console.error('Wrong usage of addService function');
         return;
     }
@@ -29,7 +62,7 @@ function addMethodService(children) {
         return;
     }
 
-    if (children instanceof o || children.__proto__.init) {
+    if (children instanceof o$1 || children.__proto__.init) {
         const oInstanceHTML = children.init();
         if (oInstanceHTML instanceof HTMLElement) {
             this.element.appendChild(oInstanceHTML);
@@ -39,24 +72,24 @@ function addMethodService(children) {
     return;
 }
 
-function inputFunction(instance, name,  value) {
-    if(instance.element.nodeName !== 'INPUT' || value === undefined) {
+function inputFunction(instance, name, value) {
+    if (instance.element.nodeName !== 'INPUT' || value === undefined) {
         return instance;
     }
     instance.element[name] = value;
     return instance;
 }
 
-function o(element) {
-    if (!(this instanceof o)) {
-        return new o(element);
+function o$1(element) {
+    if (!(this instanceof o$1)) {
+        return new o$1(element);
     }
     if (element === 'fragment') {
         this.element = oFragment();
         return;
     }
 
-    if(element instanceof HTMLElement) {
+    if (element instanceof HTMLElement) {
         this.element = element;
         return;
     }
@@ -65,7 +98,7 @@ function o(element) {
 }
 
 
-o.prototype.event = function (obj) {
+o$1.prototype.event = function (obj) {
     if (obj instanceof Array) {
         obj.forEach(event => this.element.addEventListener(
             event.name,
@@ -80,22 +113,22 @@ o.prototype.event = function (obj) {
     return this;
 };
 
-o.prototype.click = function (cb) {
+o$1.prototype.click = function (cb) {
     this.element.addEventListener('click', cb);
     return this;
 };
 
 
-o.prototype.setAttribute = function (name, val) {
+o$1.prototype.setAttribute = function (name, val) {
     this.element.setAttribute(name, val);
     return this;
 };
 
-o.prototype.setAttributes = function (attributes) {
+o$1.prototype.setAttributes = function (attributes) {
     return this.attr(attributes);
 };
 
-o.prototype.attr = function (attrs) {
+o$1.prototype.attr = function (attrs) {
     if (Array.isArray(attrs)) {
         attrs.forEach(attr => this.element.setAttribute(attr.name, attr.val));
     } else {
@@ -104,7 +137,7 @@ o.prototype.attr = function (attrs) {
     return this;
 };
 
-o.prototype.class = function (classNames) {
+o$1.prototype.class = function (classNames) {
     if (Array.isArray(classNames)) {
         classNames.forEach(className => this.element.classList.add(className));
     } else if (typeof classNames === 'string') {
@@ -113,56 +146,56 @@ o.prototype.class = function (classNames) {
     return this;
 };
 
-o.prototype.classList = function (classList) {
+o$1.prototype.classList = function (classList) {
     return this.class(classList)
 };
-o.prototype.className = function (className) {
+o$1.prototype.className = function (className) {
     return this.class(className)
 };
 
-o.prototype.id = function (id) {
+o$1.prototype.id = function (id) {
     this.element.setAttribute('id', id);
     return this;
 };
 
-o.prototype.add = function (...children) {
+o$1.prototype.add = function (...children) {
     children.forEach(child => addMethodService.call(this, child));
     return this;
 };
 
-o.prototype.for = function (id) {
+o$1.prototype.for = function (id) {
     if (this.element.nodeName === 'LABEL') {
         this.element.setAttribute('for', id);
     }
     return this;
 };
 
-o.prototype.get = function (attribute) {
+o$1.prototype.get = function (attribute) {
     return this.element[attribute] || undefined;
 };
 
-o.prototype.getText = function () {
+o$1.prototype.getText = function () {
     return this.element.innerText;
 };
 
-o.prototype.getId = function() {
+o$1.prototype.getId = function () {
     return this.element.id || undefined;
 };
 
-o.prototype.parent = function() {
-    const { parentNode }  = this.element;
+o$1.prototype.parent = function () {
+    const { parentNode } = this.element;
 
-    return parentNode ? o(parentNode) : null;
+    return parentNode ? o$1(parentNode) : null;
 };
 
-o.prototype.text = function (text) {
+o$1.prototype.text = function (text) {
     if (!['undefined', 'object', 'function'].includes(typeof text)) {
         this.element.textContent = text;
     }
     return this;
 };
 
-o.prototype.html = function (html) {
+o$1.prototype.html = function (html) {
     if (typeof (html) == 'object') {
         try {
             this.element.appendChild(html);
@@ -176,11 +209,11 @@ o.prototype.html = function (html) {
     return this;
 };
 
-o.prototype.init = function () {
+o$1.prototype.init = function () {
     return (this.element instanceof oFragment) ? this.element.init() : this.element;
 };
 
-o.prototype.ref = function (oRefInstance) {
+o$1.prototype.ref = function (oRefInstance) {
     if (!oRefInstance || !(oRefInstance instanceof oRef)) {
         return this;
     }
@@ -189,56 +222,37 @@ o.prototype.ref = function (oRefInstance) {
     return this;
 };
 
-o.prototype.style = function (styles) {
+o$1.prototype.style = function (styles) {
     this.element.setAttribute('style', styles);
     return this;
 };
 
 // INPUT functions
 
-o.prototype.placeholder = function (placeholder) { return inputFunction(this, 'placeholder', placeholder) };
-o.prototype.value = function (value) { return inputFunction(this, 'value', value) };
-o.prototype.type = function (type) { return inputFunction(this, 'type', type) };
-o.prototype.name = function (name) { return inputFunction(this, 'name', name) };
-o.prototype.min = function (min) { return inputFunction(this, 'min', min) };
-o.prototype.max = function (max) { return inputFunction(this, 'max', max) };
-o.prototype.disabled = function (disabled) { return inputFunction(this, 'disabled', disabled) };
-o.prototype.required = function (required) { return inputFunction(this, 'required', required) };
+o$1.prototype.placeholder = function (placeholder) { return inputFunction(this, 'placeholder', placeholder) };
+o$1.prototype.value = function (value) { return inputFunction(this, 'value', value) };
+o$1.prototype.type = function (type) { return inputFunction(this, 'type', type) };
+o$1.prototype.name = function (name) { return inputFunction(this, 'name', name) };
+o$1.prototype.min = function (min) { return inputFunction(this, 'min', min) };
+o$1.prototype.max = function (max) { return inputFunction(this, 'max', max) };
+o$1.prototype.disabled = function (disabled) { return inputFunction(this, 'disabled', disabled) };
+o$1.prototype.required = function (required) { return inputFunction(this, 'required', required) };
 
-function oFragment(...children) {
-    if (!(this instanceof oFragment)) {
-        return new oFragment(...children);
+function oDom(selector, parentNode = document) {
+    if (typeof selector !== 'string') return null;
+
+    const parentNodeElement = (parentNode instanceof o$1)
+        ? parentNode.element
+        : parentNode;
+
+    try {
+        const element = parentNodeElement.querySelector(selector);
+
+        return element ? o$1(element) : null;
+    } catch (err) {
+        return null;
     }
-
-    this.children = children.length === 1 && Array.isArray(children[0])
-        ? children[0]
-        : children;
 }
-
-oFragment.prototype.add = function (...children) {
-    if(!children.length)
-        return this;
-    const childrenArray = children.length === 1 && Array.isArray(children[0])
-        ? children[0]
-        : children;
-
-    this.children = this.children.concat(childrenArray);
-
-    return this;
-};
-
-oFragment.prototype.init = function () {
-    return this.children;
-};
-
-
-function oRef() {
-    if (!(this instanceof oRef))
-        return new oRef();
-    this.target = null;
-    this.o = null;
-}
-
 
 function oRender(parentNode, childNode, cleanParentContent = false) {
     if (Array.isArray(childNode)) {
@@ -254,12 +268,12 @@ function oRender(parentNode, childNode, cleanParentContent = false) {
     let parentNodeHTML = (parentNode instanceof HTMLElement) ? parentNode : parentNode.element;
     const renderNode = childNode => {
         if (childNode instanceof HTMLElement) {
-            if(cleanParentContent) parentNodeHTML.innerHTML = '';
+            if (cleanParentContent) parentNodeHTML.innerHTML = '';
             parentNodeHTML.appendChild(childNode);
             return;
         }
         if (childNode.__proto__.init) {
-            if(cleanParentContent) parentNodeHTML.innerHTML = '';
+            if (cleanParentContent) parentNodeHTML.innerHTML = '';
             parentNodeHTML.appendChild(childNode.init());
         }
     };
@@ -272,23 +286,7 @@ function oRender(parentNode, childNode, cleanParentContent = false) {
     renderNode(childNode);
 }
 
-function oDom(selector, parentNode = document) {
-    if(typeof selector !== 'string') return null;
-
-    const parentNodeElement = (parentNode instanceof o)
-        ? parentNode.element
-        : parentNode;
-
-    try{
-        const element = parentNodeElement.querySelector(selector);
-
-        return element ? o(element) : null;
-    }catch(err) {
-        return null;
-    }
-}
-
-exports["default"] = o;
+exports["default"] = o$1;
 exports.oDom = oDom;
 exports.oFragment = oFragment;
 exports.oRef = oRef;

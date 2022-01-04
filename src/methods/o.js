@@ -1,5 +1,7 @@
-import addMethodService from "./utils/addMethodService";
-import inputFunction from "./utils/inputFunction";
+import { oFragment } from "./oFragment";
+import { oRef } from "./oRef";
+import { addMethodService } from "../utils/addMethodService";
+import { inputFunction } from "../utils/inputFunction";
 
 export function o(element) {
     if (!(this instanceof o)) {
@@ -158,46 +160,3 @@ o.prototype.min = function (min) { return inputFunction(this, 'min', min) }
 o.prototype.max = function (max) { return inputFunction(this, 'max', max) }
 o.prototype.disabled = function (disabled) { return inputFunction(this, 'disabled', disabled) }
 o.prototype.required = function (required) { return inputFunction(this, 'required', required) }
-
-export function oFragment(...children) {
-    if (!(this instanceof oFragment)) {
-        return new oFragment(...children);
-    }
-
-    this.children = children.length === 1 && Array.isArray(children[0])
-        ? children[0]
-        : children;
-}
-
-oFragment.prototype.add = function (...children) {
-    if (!children.length)
-        return this;
-    const childrenArray = children.length === 1 && Array.isArray(children[0])
-        ? children[0]
-        : children;
-
-    this.children = this.children.concat(childrenArray);
-
-    return this;
-};
-
-oFragment.prototype.init = function () {
-    return this.children;
-};
-
-
-export function oDom(selector, parentNode = document) {
-    if (typeof selector !== 'string') return null;
-
-    const parentNodeElement = (parentNode instanceof o)
-        ? parentNode.element
-        : parentNode;
-
-    try {
-        const element = parentNodeElement.querySelector(selector);
-
-        return element ? o(element) : null;
-    } catch (err) {
-        return null;
-    }
-}

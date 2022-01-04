@@ -1,3 +1,5 @@
+import { oFragment } from "./oFragment";
+
 export function oRender(parentNode, childNode, cleanParentContent = false) {
     if (Array.isArray(childNode)) {
         childNode.forEach(child => oRender(parentNode, child));

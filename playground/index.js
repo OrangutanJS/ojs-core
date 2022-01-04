@@ -1,5 +1,7 @@
-import o, { oFragment, oDom } from '../src/o';
-import { oRender } from '../src/oRender';
+import { o } from '../src/methods/o';
+import { oRender } from '../src/methods/oRender';
+import { oFragment } from '../src/methods/oFragment';
+import { oDom } from '../src/methods/oDom';
 import './main.css';
 
 const div = o('div');
