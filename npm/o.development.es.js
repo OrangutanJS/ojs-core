@@ -2,69 +2,52 @@ function oFragment(...children) {
     if (!(this instanceof oFragment)) {
         return new oFragment(...children);
     }
-
     this.children = children.length === 1 && Array.isArray(children[0])
         ? children[0]
         : children;
+    this._isofragment = true;
 }
-
 oFragment.prototype.add = function (...children) {
     if (!children.length)
         return this;
     const childrenArray = children.length === 1 && Array.isArray(children[0])
         ? children[0]
         : children;
-
     this.children = this.children.concat(childrenArray);
-
     return this;
 };
-
 oFragment.prototype.init = function () {
     return this.children;
 };
 
-function oRef() {
-    if (!(this instanceof oRef))
-        return new oRef();
-    this.target = null;
-    this.o = null;
-}
-
 function addMethodService(children) {
-    if (!(this instanceof o)) {
+    if (!this._isoelement) {
         console.error('Wrong usage of addService function');
         return;
     }
-
     if (
         typeof children === 'boolean' ||
         children === null ||
         typeof children === 'undefined'
     ) return;
-
     if (Array.isArray(children)) {
         children.forEach(child => addMethodService.call(this, child));
         return;
     }
-
-    if (children instanceof oFragment) {
+    if (children._isofragment) {
         children.init().forEach(child => addMethodService.call(this, child));
         return;
     }
-
     if (children instanceof HTMLElement) {
         this.element.appendChild(children);
         return;
     }
-
-    if (children instanceof o || children.__proto__.init) {
+    if (children._isoelement || children.__proto__.init) {
         const oInstanceHTML = children.init();
         if (oInstanceHTML instanceof HTMLElement) {
             this.element.appendChild(oInstanceHTML);
         }
     }
-
     return;
 }
 
@@ -84,15 +67,13 @@ function o(element) {
         this.element = oFragment();
         return;
     }
-
     if (element instanceof HTMLElement) {
         this.element = element;
         return;
     }
-
     this.element = document.createElement(element);
+    this._isoelement = true;
 }
-
 o.prototype.event = function (obj) {
     if (obj instanceof Array) {
         obj.forEach(event => this.element.addEventListener(
@@ -107,22 +88,17 @@ o.prototype.event = function (obj) {
     }
     return this;
 };
-
 o.prototype.click = function (cb) {
     this.element.addEventListener('click', cb);
     return this;
 };
-
-
 o.prototype.setAttribute = function (name, val) {
     this.element.setAttribute(name, val);
     return this;
 };
-
 o.prototype.setAttributes = function (attributes) {
     return this.attr(attributes);
 };
-
 o.prototype.attr = function (attrs) {
     if (Array.isArray(attrs)) {
         attrs.forEach(attr => this.element.setAttribute(attr.name, attr.val));
@@ -131,7 +107,6 @@ o.prototype.attr = function (attrs) {
     }
     return this;
 };
-
 o.prototype.class = function (classNames) {
     if (Array.isArray(classNames)) {
         classNames.forEach(className => this.element.classList.add(className));
@@ -140,56 +115,45 @@ o.prototype.class = function (classNames) {
     }
     return this;
 };
-
 o.prototype.classList = function (classList) {
     return this.class(classList)
 };
 o.prototype.className = function (className) {
     return this.class(className)
 };
-
 o.prototype.id = function (id) {
     this.element.setAttribute('id', id);
     return this;
 };
-
 o.prototype.add = function (...children) {
-    children.forEach(child => addMethodService.call(this, child));
+    children.forEach(child => addMethodService.call(this, child, o));
     return this;
 };
-
 o.prototype.for = function (id) {
     if (this.element.nodeName === 'LABEL') {
         this.element.setAttribute('for', id);
     }
     return this;
 };
-
 o.prototype.get = function (attribute) {
     return this.element[attribute] || undefined;
 };
-
 o.prototype.getText = function () {
     return this.element.innerText;
 };
-
 o.prototype.getId = function () {
     return this.element.id || undefined;
 };
-
 o.prototype.parent = function () {
     const { parentNode } = this.element;
-
     return parentNode ? o(parentNode) : null;
 };
-
 o.prototype.text = function (text) {
     if (!['undefined', 'object', 'function'].includes(typeof text)) {
         this.element.textContent = text;
     }
     return this;
 };
-
 o.prototype.html = function (html) {
     if (typeof (html) == 'object') {
         try {
@@ -200,30 +164,23 @@ o.prototype.html = function (html) {
     } else if (typeof (html) !== undefined && html !== undefined) {
         this.element.innerHTML = html;
     }
-
     return this;
 };
-
 o.prototype.init = function () {
     return (this.element instanceof oFragment) ? this.element.init() : this.element;
 };
-
 o.prototype.ref = function (oRefInstance) {
-    if (!oRefInstance || !(oRefInstance instanceof oRef)) {
+    if (!oRefInstance || !oRefInstance._isoref) {
         return this;
     }
     oRefInstance.target = this.element;
     oRefInstance.o = this;
     return this;
 };
-
 o.prototype.style = function (styles) {
     this.element.setAttribute('style', styles);
     return this;
 };
-
-// INPUT functions
-
 o.prototype.placeholder = function (placeholder) { return inputFunction(this, 'placeholder', placeholder) };
 o.prototype.value = function (value) { return inputFunction(this, 'value', value) };
 o.prototype.type = function (type) { return inputFunction(this, 'type', type) };
@@ -235,18 +192,23 @@ o.prototype.required = function (required) { return inputFunction(this, 'require
 
 function oDom(selector, parentNode = document) {
     if (typeof selector !== 'string') return null;
-
     const parentNodeElement = (parentNode instanceof o)
         ? parentNode.element
         : parentNode;
-
     try {
         const element = parentNodeElement.querySelector(selector);
-
         return element ? o(element) : null;
     } catch (err) {
         return null;
     }
+}
+
+function oRef() {
+    if (!(this instanceof oRef))
+        return new oRef();
+    this.target = null;
+    this.o = null;
+    this._isoref = true;
 }
 
 function oRender(parentNode, childNode, cleanParentContent = false) {
@@ -254,12 +216,10 @@ function oRender(parentNode, childNode, cleanParentContent = false) {
         childNode.forEach(child => oRender(parentNode, child));
         return;
     }
-
-    const isParentNodeValid = (parentNode instanceof HTMLElement) || (parentNode instanceof o);
+    const isParentNodeValid = (parentNode instanceof HTMLElement) || parentNode._isoelement;
     const isChildNodeValid = (childNode instanceof HTMLElement) || !!childNode.__proto__.init;
     if (!isParentNodeValid || !isChildNodeValid)
         return;
-
     let parentNodeHTML = (parentNode instanceof HTMLElement) ? parentNode : parentNode.element;
     const renderNode = childNode => {
         if (childNode instanceof HTMLElement) {
@@ -272,12 +232,10 @@ function oRender(parentNode, childNode, cleanParentContent = false) {
             parentNodeHTML.appendChild(childNode.init());
         }
     };
-
-    if (childNode instanceof oFragment) {
+    if (childNode._isofragment) {
         childNode.init().forEach(child => renderNode(child));
         return;
     }
-
     renderNode(childNode);
 }
 

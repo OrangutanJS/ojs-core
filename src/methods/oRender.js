@@ -1,13 +1,10 @@
-import { oFragment } from "./oFragment";
-import { o } from "./o";
-
 export function oRender(parentNode, childNode, cleanParentContent = false) {
     if (Array.isArray(childNode)) {
         childNode.forEach(child => oRender(parentNode, child));
         return;
     }
 
-    const isParentNodeValid = (parentNode instanceof HTMLElement) || (parentNode instanceof o);
+    const isParentNodeValid = (parentNode instanceof HTMLElement) || parentNode._isoelement;
     const isChildNodeValid = (childNode instanceof HTMLElement) || !!childNode.__proto__.init;
     if (!isParentNodeValid || !isChildNodeValid)
         return;
@@ -25,7 +22,7 @@ export function oRender(parentNode, childNode, cleanParentContent = false) {
         }
     }
 
-    if (childNode instanceof oFragment) {
+    if (childNode._isofragment) {
         childNode.init().forEach(child => renderNode(child));
         return;
     }

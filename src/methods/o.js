@@ -1,5 +1,4 @@
 import { oFragment } from "./oFragment";
-import { oRef } from "./oRef";
 import { addMethodService } from "../utils/addMethodService";
 import { inputFunction } from "../utils/inputFunction";
 
@@ -18,6 +17,8 @@ export function o(element) {
     }
 
     this.element = document.createElement(element);
+
+    this._isoelement = true; // just for development - flag to check is element o function instance
 }
 
 o.prototype.event = function (obj) {
@@ -81,7 +82,7 @@ o.prototype.id = function (id) {
 };
 
 o.prototype.add = function (...children) {
-    children.forEach(child => addMethodService.call(this, child));
+    children.forEach(child => addMethodService.call(this, child, o));
     return this;
 }
 
@@ -136,7 +137,7 @@ o.prototype.init = function () {
 };
 
 o.prototype.ref = function (oRefInstance) {
-    if (!oRefInstance || !(oRefInstance instanceof oRef)) {
+    if (!oRefInstance || !oRefInstance._isoref) {
         return this;
     }
     oRefInstance.target = this.element;
