@@ -1,4 +1,8 @@
-import o, { oFragment, oRender, oDom } from '../src/o';
+import { o } from '../src/methods/o';
+import { oRender } from '../src/methods/oRender';
+import { oFragment } from '../src/methods/oFragment';
+import { oDom } from '../src/methods/oDom';
+// import o, { oRender, oFragment, oDom } from '../npm/o.development.es';
 import './main.css';
 
 const div = o('div');

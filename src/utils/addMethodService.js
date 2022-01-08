@@ -1,7 +1,5 @@
-import o, { oFragment } from "../o";
-
-export default function addMethodService(children) {
-    if (!(this instanceof o)) {
+export function addMethodService(children) {
+    if (!this._isoelement) {
         console.error('Wrong usage of addService function');
         return;
     }
@@ -17,7 +15,7 @@ export default function addMethodService(children) {
         return;
     }
 
-    if (children instanceof oFragment) {
+    if (children._isofragment) {
         children.init().forEach(child => addMethodService.call(this, child));
         return;
     }
@@ -27,7 +25,7 @@ export default function addMethodService(children) {
         return;
     }
 
-    if (children instanceof o || children.__proto__.init) {
+    if (children._isoelement || children.__proto__.init) {
         const oInstanceHTML = children.init();
         if (oInstanceHTML instanceof HTMLElement) {
             this.element.appendChild(oInstanceHTML);
