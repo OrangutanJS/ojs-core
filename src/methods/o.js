@@ -82,7 +82,7 @@ o.prototype.id = function (id) {
 };
 
 o.prototype.add = function (...children) {
-    children.forEach(child => addMethodService.call(this, child, o));
+    children.forEach(child => addMethodService.call(this, child));
     return this;
 }
 
