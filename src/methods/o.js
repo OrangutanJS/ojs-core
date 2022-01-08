@@ -72,6 +72,7 @@ o.prototype.class = function (classNames) {
 o.prototype.classList = function (classList) {
     return this.class(classList)
 };
+
 o.prototype.className = function (className) {
     return this.class(className)
 }
