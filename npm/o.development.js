@@ -67,6 +67,7 @@ function o(element) {
     if (!(this instanceof o)) {
         return new o(element);
     }
+    this._isoelement = true;
     if (element === 'fragment') {
         this.element = oFragment();
         return;
@@ -76,7 +77,6 @@ function o(element) {
         return;
     }
     this.element = document.createElement(element);
-    this._isoelement = true;
 }
 o.prototype.event = function (obj) {
     if (obj instanceof Array) {
@@ -130,7 +130,7 @@ o.prototype.id = function (id) {
     return this;
 };
 o.prototype.add = function (...children) {
-    children.forEach(child => addMethodService.call(this, child, o));
+    children.forEach(child => addMethodService.call(this, child));
     return this;
 };
 o.prototype.for = function (id) {

@@ -6,6 +6,8 @@ export function o(element) {
     if (!(this instanceof o)) {
         return new o(element);
     }
+    this._isoelement = true; // just for development - flag to check is element o function instance
+
     if (element === 'fragment') {
         this.element = oFragment();
         return;
@@ -17,8 +19,6 @@ export function o(element) {
     }
 
     this.element = document.createElement(element);
-
-    this._isoelement = true; // just for development - flag to check is element o function instance
 }
 
 o.prototype.event = function (obj) {
