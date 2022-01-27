@@ -7,19 +7,19 @@ import './main.css';
 
 const div = o('div');
 const html = div.add(
-    o('p').text('p - init').init(),
-    o('p').id('pElement').text('p - without init'),
-    oFragment(
-        o('p').text('p - inside oFragment with init').init(),
-        o('p').text('p - inside oFragment without init'),
-        o('p').text('oFragment with init')
-    ),
+  o('p').text('p - init').init(),
+  o('p').id('pElement').text('p - without init'),
+  oFragment(
+    o('p').text('p - inside oFragment with init').init(),
+    o('p').text('p - inside oFragment without init'),
+    o('p').text('oFragment with init')
+  ),
 );
 
 // oRender - Scenario #1
 oRender(
-    document.body,
-    html.init()
+  document.body,
+  html.init()
 );
 
 // const pElement = oDom('#pElement', div);
