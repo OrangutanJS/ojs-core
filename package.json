@@ -7,8 +7,7 @@
   "files": [
     "npm/index.js",
     "npm/o.development.js",
-    "npm/o.production.min.js",
-    "npm/o.development.es.js"
+    "npm/o.production.min.js"
   ],
   "scripts": {
     "build": "npm run rollup && npm run build:prod",

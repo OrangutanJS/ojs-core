@@ -1,3 +1,4 @@
+export { o as default } from './methods/o';
 export { o } from './methods/o';
 export { oDom } from './methods/oDom';
 export { oFragment } from './methods/oFragment';
