@@ -10,20 +10,20 @@ export function oRender(parentNode, childNode, cleanParentContent = false) {
     return;
 
   let parentNodeHTML = (parentNode instanceof HTMLElement) ? parentNode : parentNode.element;
-  const renderNode = childNode => {
+  const renderNode = (childNode, isFragment = false) => {
     if (childNode instanceof HTMLElement) {
-      if (cleanParentContent) parentNodeHTML.innerHTML = '';
+      if (cleanParentContent && !isFragment) parentNodeHTML.innerHTML = '';
       parentNodeHTML.appendChild(childNode);
       return;
     }
     if (childNode.__proto__.init) {
-      if (cleanParentContent) parentNodeHTML.innerHTML = '';
+      if (cleanParentContent && !isFragment) parentNodeHTML.innerHTML = '';
       parentNodeHTML.appendChild(childNode.init());
     }
   }
 
   if (childNode._isofragment) {
-    childNode.init().forEach(child => renderNode(child));
+    childNode.init().forEach(child => renderNode(child, true));
     return;
   }
 
