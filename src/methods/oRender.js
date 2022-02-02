@@ -1,6 +1,6 @@
 export function oRender(parentNode, childNode, cleanParentContent = false) {
   if (Array.isArray(childNode)) {
-    childNode.forEach(child => oRender(parentNode, child));
+    childNode.forEach(child => oRender(parentNode, child, cleanParentContent));
     return;
   }
 
@@ -23,7 +23,7 @@ export function oRender(parentNode, childNode, cleanParentContent = false) {
   }
 
   if (childNode._isofragment) {
-    childNode.init().forEach((child, childIndex) => renderNode(child, !childIndex));
+    childNode.init().forEach((child, childIndex) => renderNode(child, !!childIndex));
     return;
   }
 
