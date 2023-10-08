@@ -3,10 +3,22 @@ import { addMethodService } from "../utils/addMethodService";
 import { inputFunction } from "../utils/inputFunction";
 
 export function o(element) {
+  if (!element) {
+    return null;
+  }
+
   if (!(this instanceof o)) {
     return new o(element);
   }
-  this._isoelement = true; // just for development - flag to check is element o function instance
+
+  Object.defineProperty(
+    this,
+    '_isoelement',
+    {
+      value: true,
+      writable: false,
+    },
+  );
 
   if (element === 'fragment') {
     this.element = oFragment();
@@ -21,26 +33,28 @@ export function o(element) {
   this.element = document.createElement(element);
 }
 
-o.prototype.event = function (obj) {
-  if (obj instanceof Array) {
-    obj.forEach(event => this.element.addEventListener(
+// TODO: Instead of event change to events and .event method change to method with two attributes - name and fn (like in .setAttribute method)
+// Example: .event('change', () => {...})
+// Example: .events([{ name: 'change', fn: () => {...} }])
+o.prototype.event = function (events) {
+  if (events instanceof Array) {
+    events.forEach(event => this.element.addEventListener(
       event.name,
       event.fn,
     ));
-  } else if (obj instanceof Object) {
+  } else if (events instanceof Object) {
     this.element.addEventListener(
-      obj.name,
-      obj.fn,
+      events.name,
+      events.fn,
     );
   }
   return this;
 };
 
-o.prototype.click = function (cb) {
-  this.element.addEventListener('click', cb);
+o.prototype.click = function (fn) {
+  this.element.addEventListener('click', fn);
   return this;
 };
-
 
 o.prototype.setAttribute = function (name, val) {
   this.element.setAttribute(name, val);
@@ -48,17 +62,14 @@ o.prototype.setAttribute = function (name, val) {
 }
 
 o.prototype.setAttributes = function (attributes) {
-  return this.attr(attributes);
-}
-
-o.prototype.attr = function (attrs) {
-  if (Array.isArray(attrs)) {
-    attrs.forEach(attr => this.element.setAttribute(attr.name, attr.val));
+  if (Array.isArray(attributes)) {
+    attributes.forEach(attribute => this.element.setAttribute(attribute.name, attribute.val));
   } else {
-    Object.entries(attrs).forEach(([name, val]) => this.element.setAttribute(name, val));
+    Object.entries(attributes).forEach(([name, val]) => this.element.setAttribute(name, val));
   }
+
   return this;
-};
+}
 
 o.prototype.class = function (classNames) {
   if (Array.isArray(classNames)) {
@@ -72,10 +83,6 @@ o.prototype.class = function (classNames) {
 o.prototype.classList = function (classList) {
   return this.class(classList)
 };
-
-o.prototype.className = function (className) {
-  return this.class(className)
-}
 
 o.prototype.id = function (id) {
   this.element.setAttribute('id', id);
@@ -114,11 +121,13 @@ o.prototype.parent = function () {
 
 o.prototype.text = function (text) {
   if (!['undefined', 'object', 'function'].includes(typeof text)) {
-    this.element.textContent = text;
+    this.element.textContent = String(text);
   }
+
   return this;
 };
 
+// TODO: xss save
 o.prototype.html = function (html) {
   if (typeof (html) == 'object') {
     try {

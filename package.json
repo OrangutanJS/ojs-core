@@ -13,7 +13,8 @@
     "build": "npm run rollup && npm run build:prod",
     "build:prod": "terser ./npm/o.development.js -c -m -o ./npm/o.production.min.js",
     "rollup": "rollup --config ./config/rollup.config.js",
-    "dev": "webpack serve --config ./config/webpack.config.js"
+    "dev": "webpack serve --config ./config/webpack.config.js",
+    "test": "vitest --config ./config/vitest.config.js"
   },
   "repository": {
     "type": "git",
@@ -36,12 +37,14 @@
     "babel-loader": "^8.2.2",
     "babel-polyfill": "^6.26.0",
     "css-loader": "^6.3.0",
+    "happy-dom": "^12.9.0",
     "html-webpack-plugin": "^5.3.2",
     "mini-css-extract-plugin": "^2.3.0",
     "ojs-inline-components": "^1.6.2",
     "rollup": "^2.60.2",
     "rollup-plugin-cleanup": "^3.2.1",
     "terser": "^5.10.0",
+    "vitest": "^0.34.6",
     "webpack": "^5.56.0",
     "webpack-cli": "^4.8.0",
     "webpack-dev-server": "^4.3.0"
