@@ -1,4 +1,4 @@
-import { expect, describe, it, vi, onTestFailed } from 'vitest';
+import { expect, describe, it, vi } from 'vitest';
 import { o } from '../o';
 
 describe('Ojs Core', () => {
@@ -28,6 +28,14 @@ describe('Ojs Core', () => {
     expect(result).toStrictEqual(document.createElement('p'));
   });
 
+  it('should have set _isoelement property to true value', () => {
+    // when
+    const oElement = o('div');
+
+    // then
+    expect(oElement._isoelement).toBe(true);
+  });
+
   it('should not be possible to edit _isoelement property', () => {
     // given
     const oElement = o('div');
@@ -35,7 +43,7 @@ describe('Ojs Core', () => {
     // when
     const editIsOElementProperty = () => {
       oElement._isoelement = false;
-    }
+    };
 
     // then
     expect(editIsOElementProperty).toThrowError(/Cannot assign to read only property/);
@@ -163,6 +171,14 @@ describe('Ojs Core', () => {
       // then
       expect(notLabelElement.getAttribute('for')).not.toBe('interactive-element');
     });
+
+    it('should add style attribute value - .style()', () => {
+      // when
+      const divElement = o('div').style('color:red;').init();
+
+      // then
+      expect(divElement.getAttribute('style')).toBe('color:red;');
+    });
   });
 
   describe('Nesting childrens - .add() method', () => {
@@ -250,7 +266,44 @@ describe('Ojs Core', () => {
         expect(paragraphElement.innerText).toBe('')
       });
     });
+
+    it('should add html content - .html()', () => {
+      // given
+      const inputHtml = '<p>Lorem ipsum...</p>';
+      const divElement = o('div');
+
+      // when
+      divElement.html(inputHtml);
+
+      // then
+      expect(divElement.element.innerHTML).toBe('<p>Lorem ipsum...</p>')
+    });
+
+    it('should sanitize string with <script> element when adding html content - .html()', () => {
+      // given
+      const inputHtml = '<script>alert("1")</script><p>Lorem ipsum...</p>';
+      const divElement = o('div');
+
+      // when
+      divElement.html(inputHtml);
+
+      // then
+      expect(divElement.element.innerHTML).toBe('<p>Lorem ipsum...</p>')
+    });
+
+    it('should add html content passed as HTMLElement - .html()', () => {
+      // given
+      const inputHtmlElement = document.createElement('p');
+      const divElement = o('div');
+
+      // when
+      divElement.html(inputHtmlElement);
+
+      // then
+      expect(divElement.element.innerHTML).toBe('<p></p>');
+    });
   });
 
   describe.todo('Helper methods - input');
+  describe.todo('Helper methods - ref');
 });

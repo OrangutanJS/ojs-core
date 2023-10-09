@@ -4,5 +4,9 @@ export function oRef() {
   this.target = null;
   this.o = null;
 
-  this._isoref = true; // just for development - flag to check is element oRef function instance
+  Object.defineProperty(
+    this,
+    '_isoref',
+    { value: true },
+  );
 }

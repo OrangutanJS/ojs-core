@@ -1,3 +1,4 @@
+import sanitizeHtml from 'sanitize-html';
 import { oFragment } from "./oFragment";
 import { addMethodService } from "../utils/addMethodService";
 import { inputFunction } from "../utils/inputFunction";
@@ -14,10 +15,7 @@ export function o(element) {
   Object.defineProperty(
     this,
     '_isoelement',
-    {
-      value: true,
-      writable: false,
-    },
+    { value: true },
   );
 
   if (element === 'fragment') {
@@ -127,17 +125,17 @@ o.prototype.text = function (text) {
   return this;
 };
 
-// TODO: xss save
 o.prototype.html = function (html) {
-  if (typeof (html) == 'object') {
+  if (typeof (html) === 'object') {
     try {
       this.element.appendChild(html);
     } catch (err) {
       console.warn('Object is not HTMLElement: parametr 1 is type ' + typeof (html) + '\n' + err);
     }
-  } else if (typeof (html) !== undefined && html !== undefined) {
-    this.element.innerHTML = html;
+    return this;
   }
+
+  this.element.innerHTML = sanitizeHtml(html);
 
   return this;
 };
