@@ -7,7 +7,11 @@ export function oFragment(...children) {
     ? children[0]
     : children;
 
-  this._isofragment = true; // just for development - flag to check is element oFragment function instance
+  Object.defineProperty(
+    this,
+    '_isofragment',
+    { value: true },
+  );
 }
 
 oFragment.prototype.add = function (...children) {
