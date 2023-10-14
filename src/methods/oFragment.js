@@ -1,3 +1,4 @@
+// eslint-disable-next-line consistent-return
 export function oFragment(...children) {
   if (!(this instanceof oFragment)) {
     return new oFragment(...children);
@@ -15,8 +16,7 @@ export function oFragment(...children) {
 }
 
 oFragment.prototype.add = function (...children) {
-  if (!children.length)
-    return this;
+  if (!children.length) { return this; }
   const childrenArray = children.length === 1 && Array.isArray(children[0])
     ? children[0]
     : children;

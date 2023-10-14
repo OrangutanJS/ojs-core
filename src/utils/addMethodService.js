@@ -5,18 +5,18 @@ export function addMethodService(children) {
   }
 
   if (
-    typeof children === 'boolean' ||
-    children === null ||
-    typeof children === 'undefined'
+    typeof children === 'boolean'
+    || children === null
+    || typeof children === 'undefined'
   ) return;
 
   if (Array.isArray(children)) {
-    children.forEach(child => addMethodService.call(this, child));
+    children.forEach((child) => addMethodService.call(this, child));
     return;
   }
 
   if (children._isofragment) {
-    children.init().forEach(child => addMethodService.call(this, child));
+    children.init().forEach((child) => addMethodService.call(this, child));
     return;
   }
 
@@ -25,12 +25,10 @@ export function addMethodService(children) {
     return;
   }
 
-  if (children._isoelement || children.__proto__.init) {
+  if (children._isoelement || !!children.init) {
     const oInstanceHTML = children.init();
     if (oInstanceHTML instanceof HTMLElement) {
       this.element.appendChild(oInstanceHTML);
     }
   }
-
-  return;
 }

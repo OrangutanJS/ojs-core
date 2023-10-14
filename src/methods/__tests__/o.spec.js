@@ -1,4 +1,6 @@
-import { expect, describe, it, vi } from 'vitest';
+import {
+  expect, describe, it, vi,
+} from 'vitest';
 import { o } from '../o';
 
 describe('Ojs Core', () => {
@@ -185,11 +187,11 @@ describe('Ojs Core', () => {
     it('should nest elements', () => {
       // when
       const result = o('p').add(
-        o('span').text('Span element inside p element').init()
+        o('span').text('Span element inside p element').init(),
       ).init();
 
       // then
-      expect(result.outerHTML).toBe(`<p><span>Span element inside p element</span></p>`)
+      expect(result.outerHTML).toBe(`<p><span>Span element inside p element</span></p>`);
     });
 
     it.todo('Moore test with elements other than ojs-core instances (oRef, oFragment, elements without init etc.)');
@@ -249,7 +251,7 @@ describe('Ojs Core', () => {
       const paragraphElement = o('p').text('Lorem ipsum..').init();
 
       // then
-      expect(paragraphElement.innerText).toBe('Lorem ipsum..')
+      expect(paragraphElement.innerText).toBe('Lorem ipsum..');
     });
 
     [
@@ -263,7 +265,7 @@ describe('Ojs Core', () => {
         const paragraphElement = o('p').text(input).init();
 
         // then
-        expect(paragraphElement.innerText).toBe('')
+        expect(paragraphElement.innerText).toBe('');
       });
     });
 
@@ -276,7 +278,7 @@ describe('Ojs Core', () => {
       divElement.html(inputHtml);
 
       // then
-      expect(divElement.element.innerHTML).toBe('<p>Lorem ipsum...</p>')
+      expect(divElement.element.innerHTML).toBe('<p>Lorem ipsum...</p>');
     });
 
     it('should sanitize string with <script> element when adding html content - .html()', () => {
@@ -288,7 +290,7 @@ describe('Ojs Core', () => {
       divElement.html(inputHtml);
 
       // then
-      expect(divElement.element.innerHTML).toBe('<p>Lorem ipsum...</p>')
+      expect(divElement.element.innerHTML).toBe('<p>Lorem ipsum...</p>');
     });
 
     it('should add html content passed as HTMLElement - .html()', () => {
