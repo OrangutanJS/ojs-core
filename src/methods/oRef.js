@@ -1,6 +1,8 @@
+// eslint-disable-next-line consistent-return
 export function oRef() {
-  if (!(this instanceof oRef))
+  if (!(this instanceof oRef)) {
     return new oRef();
+  }
   this.target = null;
   this.o = null;
 
